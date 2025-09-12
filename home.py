@@ -76,4 +76,55 @@ with total5:
     st.metric(label="Rating", value=numerize(rating), help=f"""Total Rating: {rating}""")
 
 st.markdown("""---""")
-Home()
+
+ # graphs
+def graphs():
+    #total_price=int(df_selection["price"]).sum()
+    #averangerating=int(round(df_selection["ratings"]).mean(),2)
+
+    #simple line graph
+    price_by_brand_name=(
+        df_selection.groupby(by=["brand_name"]).count()[["price"]].sort_values(by="price")
+    )
+    fig_price=px.bar(
+        price_by_brand_name,
+        x="price",
+        y=price_by_brand_name.index,
+        orientation="h",
+        title="<b>price by brand name</b>",
+        color_discrete_sequence=["#0083b8"]*len(price_by_brand_name),
+        template="plotly_white",
+    )
+    
+    fig_price.update_layout(
+    plot_bgcolor="rgba(0,0,0,0)",
+    xaxis=(dict(showgrid=False))
+    )
+
+
+#simple line graph
+    price_by_pants_description=(
+        df_selection.groupby(by=["pants_description"]).count()[["price"]]
+    )
+    fig_pants_description=px.line(
+        price_by_pants_description,
+        x=price_by_pants_description.index,
+        y="price",
+        orientation="v",
+        title="<b>price by pants description</b>",
+        color_discrete_sequence=["#0083b8"]*len(price_by_pants_description),
+        template="plotly_white",
+    )
+    fig_pants_description.update_layout(
+    xaxis=(dict(tickmode="linear")),
+    plot_bgcolor="rgba(0,0,0,0)",
+    yaxis=(dict(showgrid=False))
+    )
+
+    left,right=st.columns(2)
+    left.plotly_chart(fig_pants_description, use_container_width=True)
+    right.plotly_chart(fig_price, use_container_width=True)
+
+Home() 
+graphs()
+    

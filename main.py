@@ -39,11 +39,12 @@ def HomePage():
         st.dataframe(df_selection[showdata],use_container_width=True)
 
     #compute top analytics
-    total_investment=float(df_selection['Investment'].sum())
-    investment_mode=float(df_selection['Investment'].mode())
-    investment_mean=float(df_selection['Investment'].mean())
-    investment_median=float(df_selection['Investment'].median())
-    rating=float(df_selection['Rating'].sum())
+    total_investment = float(df_selection['Investment'].sum())
+    investment_mode = float(df_selection['Investment'].mode()[0])
+    investment_mean = float(df_selection['Investment'].mean())
+    investment_median = float(df_selection['Investment'].median())
+    rating = float(df_selection['Rating'].sum())
+
 
     #columns
     total1,total2,total3,total4,total5=st.columns(5,gap='large')

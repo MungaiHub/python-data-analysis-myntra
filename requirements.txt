@@ -1,6 +1,11 @@
 streamlit
 pandas
+openpyxl
+xlsxwriter
 plotly
+matplotlib
+seaborn
+altair
 streamlit-option-menu
 numerize
 mysql-connector-python

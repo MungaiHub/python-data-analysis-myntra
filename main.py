@@ -123,4 +123,23 @@ def Graphs ():
         fig.update_layout(legend_title="Regions", legend_y=0.9)
         fig.update_traces(textinfo='percent+label',textposition='inside')
         st.plotly_chart(fig,use_container_width=True, theme=theme_plotly)
-Graphs()
+
+#progress bar
+def ProgressBar():
+    st.markdown("""<style>.stprogress > div > div > div > div {background-image:linear-gradient(to right, #99ff99, #FFFF00)}</style""",unsafe_allow_html=True)
+    target=2000000000
+    current=df_selection["Investment"].sum()
+    percent=round((current/target*100))
+    my_bar=st.progress(0)
+
+    if percent>100:
+        st.subheader("Target 100 complited")
+
+    else:
+        st.write("You have", percent, " % " ," of ", (format(target, ',d')), "Kshs.")
+        for percent_complete in range(percent):
+            time.sleep(0.1)
+            my_bar.progress(percent_complete + 1, text="Target percentage")
+
+def sidebar():
+    with

@@ -8,6 +8,7 @@ from numerize.numerize import numerize
 import plotly.express as px
 import plotly.subplots as sp
 import plotly.graph_objects as go
+from datetime import datetime
 
 #page behavour
 st.set_page_config(page_title="Descriptive Analytics",page_icon="📈",layout="wide")
@@ -142,4 +143,64 @@ def ProgressBar():
             my_bar.progress(percent_complete + 1, text="Target percentage")
 
 def sidebar():
-    with
+    with st.sidebar:
+        selected=option_menu(
+            menu_title="Menu",
+            options=["Home", "Progress"],
+            icons=["house","eye"],
+            menu_icon="cast", #option
+            default_index=0 #option
+            )
+
+    if selected == "Home":
+        try:
+            HomePage()
+            Graphs()
+        except:
+            st.Warning("one or more options are mandatory! ")
+    
+    if selected=="Progress":
+        try:
+            ProgressBar()
+            Graphs()
+
+        except:
+             st.Warning("one or more options are mandatory! ")
+    
+        
+sidebar()
+
+
+
+
+# Footer
+footer = f"""
+<style>
+.footer {{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #111; /* dark background */
+    color: #ddd; /* light gray text */
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    border-top: 1px solid #333;
+}}
+.footer a {{
+    color: #FF4B4B; /* Streamlit accent red */
+    text-decoration: none;
+    font-weight: bold;
+}}
+.footer a:hover {{
+    text-decoration: underline;
+}}
+</style>
+<div class="footer">
+    Developed by <a href="https://github.com/mungaihub" target="_blank">MungaiHub</a> | © {datetime.now().year} <br>
+    Contact: <a href="mailto:amosmungai085@gmail.com">amosmungai085@gmail.com</a>
+</div>
+"""
+
+st.markdown(footer, unsafe_allow_html=True)

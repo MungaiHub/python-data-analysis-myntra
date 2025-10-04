@@ -91,8 +91,13 @@ def Graphs ():
         template="plotly_white"
     )
     fig_investment.update_layout(
-       plot_bgcolor="rgba(0,0,0,0)",
-       xaxis=(dict(showgrid=False)) 
+    plot_bgcolor="rgba(0,0,0,0)",
+    xaxis=dict(
+        showgrid=False,
+        tickmode="linear",
+        dtick=5,  # ✅ space between x-axis numbers (increase if still crowded)
+        tickfont=dict(size=12)
+    )
      )
     
          #simple line graph

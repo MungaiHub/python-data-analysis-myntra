@@ -91,9 +91,19 @@ def Graphs ():
         template="plotly_white"
     )
     fig_investment.update_layout(
-       plot_bgcolor="rgba(0,0,0,0)",
-       xaxis=(dict(showgrid=False,tickformat="~s",dtick=1000000,automargin=True)) 
-     )
+    plot_bgcolor="rgba(0,0,0,0)",
+    xaxis=dict(
+        showgrid=False,
+        tickmode="linear",      # Ensures ticks show at regular intervals
+        dtick=1,                # Adjust spacing (e.g., 1, 5, 10 depending on your data range)
+        tickfont=dict(size=12, color="black"),  # Make numbers readable
+        title="Number of Investments"           # Optional axis title
+    ),
+    yaxis=dict(
+        tickfont=dict(size=12, color="black")
+    )
+)
+
     
          #simple line graph
     investment_by_region=(

@@ -92,7 +92,7 @@ def Graphs ():
     )
     fig_investment.update_layout(
        plot_bgcolor="rgba(0,0,0,0)",
-       xaxis=(dict(showgrid=False)) 
+       xaxis=(dict(showgrid=False,tickformat="~s",dtick=1000000,automargin=True)) 
      )
     
          #simple line graph

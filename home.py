@@ -5,6 +5,7 @@ from streamlit_option_menu import option_menu
 from numerize.numerize import numerize
 from query  import *
 import time
+from datetime import datetime
 
 
 st.set_page_config(page_title="Dashboard",layout="wide")
@@ -182,3 +183,35 @@ def sidebar():
     
         
 sidebar()
+
+# Footer
+footer = f"""
+<style>
+.footer {{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #111; /* dark background */
+    color: #ddd; /* light gray text */
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    border-top: 1px solid #333;
+}}
+.footer a {{
+    color: #FF4B4B; /* Streamlit accent red */
+    text-decoration: none;
+    font-weight: bold;
+}}
+.footer a:hover {{
+    text-decoration: underline;
+}}
+</style>
+<div class="footer">
+    Developed by <a href="https://github.com/mungaihub" target="_blank">MungaiHub</a> | © {datetime.now().year} <br>
+    Contact: <a href="mailto:amosmungai085@gmail.com">amosmungai085@gmail.com</a>
+</div>
+"""
+
+st.markdown(footer, unsafe_allow_html=True)

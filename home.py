@@ -84,7 +84,7 @@ def graphs():
     #total_price=int(df_selection["price"]).sum()
     #averangerating=int(round(df_selection["ratings"]).mean(),2)
 
-    #simple line graph
+    #simple bar graph
     price_by_brand_name=(
         df_selection.groupby(by=["brand_name"]).count()[["price"]].sort_values(by="price")
     )
@@ -104,6 +104,8 @@ def graphs():
     )
 
 
+
+
 #simple line graph
     price_by_pants_description=(
         df_selection.groupby(by=["pants_description"]).count()[["price"]]
@@ -118,10 +120,18 @@ def graphs():
         template="plotly_white",
     )
     fig_pants_description.update_layout(
-    xaxis=(dict(tickmode="linear")),
+   xaxis=dict(
+        tickangle=45,
+        tickfont=dict(size=8),
+        tickmode='array',
+        tickvals=list(range(0, len(price_by_pants_description), 5)),  # show every 5th label
+        ticktext=[price_by_pants_description.index[i] for i in range(0, len(price_by_pants_description), 5)]
+    ),
     plot_bgcolor="rgba(0,0,0,0)",
     yaxis=(dict(showgrid=False))
     )
+   
+
 
     left,right=st.columns(2)
     left.plotly_chart(fig_pants_description, use_container_width=True)
@@ -143,6 +153,32 @@ def ProgressBar():
         for percent_complete in range(percent):
             time.sleep(0.1)
             my_bar.progress(percent_complete + 1, text="Target percentage")
-ProgressBar()
-Home()
-graphs()
+
+def sidebar():
+    with st.sidebar:
+        selected=option_menu(
+            menu_title="Menu",
+            options=["Home", "Progress"],
+            icons=["house","eye"],
+            menu_icon="cast", #option
+            default_index=0 #option
+            )
+
+    if selected == "Home":
+        try:
+            Home()
+            graphs()
+            
+        except:
+            st.Warning("one or more options are mandatory! ")
+    
+    if selected=="Progress":
+        try:
+            ProgressBar()
+            graphs()
+
+        except:
+             st.Warning("one or more options are mandatory! ")
+    
+        
+sidebar()

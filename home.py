@@ -4,6 +4,8 @@ import plotly.express as px
 from streamlit_option_menu import option_menu
 from numerize.numerize import numerize
 from query  import *
+import time
+
 
 st.set_page_config(page_title="Dashboard",layout="wide")
 st.subheader("Myntra Sales Descriptive Analytics")
@@ -125,6 +127,22 @@ def graphs():
     left.plotly_chart(fig_pants_description, use_container_width=True)
     right.plotly_chart(fig_price, use_container_width=True)
 
-Home() 
+#progress bar
+def ProgressBar():
+    st.markdown("""<style>.stprogress > div > div > div > div {background-image:linear-gradient(to right, #99ff99, #FFFF00)}</style""",unsafe_allow_html=True)
+    target=1000000
+    current=df_selection["price"].sum()
+    percent=round((current/target*100))
+    my_bar=st.progress(0)
+
+    if percent>100:
+        st.subheader("Target 100 complited")
+
+    else:
+        st.write("You have", percent, " % " ," of ", (format(target, ',d')), "Kshs.")
+        for percent_complete in range(percent):
+            time.sleep(0.1)
+            my_bar.progress(percent_complete + 1, text="Target percentage")
+ProgressBar()
+Home()
 graphs()
-    
